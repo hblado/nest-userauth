@@ -6,10 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { RolesGuard } from './guards/roles.guard';
+import { Roles } from './roles/roles.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -18,6 +22,8 @@ export class UsersController {
   ) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   async create(
     @Body() createUserDto: CreateUserDto,
   ) {
@@ -39,6 +45,7 @@ export class UsersController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   async findAll() {
     try {
       const data =
@@ -54,7 +61,7 @@ export class UsersController {
         message: error.message,
       };
     }
-  }
+  } 
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
