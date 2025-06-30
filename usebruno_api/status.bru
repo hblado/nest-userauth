@@ -1,0 +1,15 @@
+meta {
+  name: status
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{host}}/auth/status
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{auth_token}}
+}
