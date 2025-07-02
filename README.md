@@ -15,13 +15,19 @@ This is a boilerplate project for NestJS with authentication. Use it as a base t
 classDiagram
     class User{
         number id
-        String fullNmae
+        String fullName
         String email
         String[] roles
         String password
         Date createdAt
         Date updateAt
         Date deletedAt
+        create()
+        findAll()
+        findOne()
+        changePassword()
+        update()
+        remove()
     }
 ```
 
@@ -52,6 +58,6 @@ You can turn off the database logging at `app.module.ts`
 * [x] JWT Auth
 * [x] Use Guards and Strategies
 * [x] Bcrypt passwords
-* [ ] User CRUD endpoints
+* [x] User CRUD endpoints
 * [x] Protect endpoints by user role
 * [ ] ts-check documentation

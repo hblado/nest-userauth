@@ -120,6 +120,8 @@ export class UsersController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,

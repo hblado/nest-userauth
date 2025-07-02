@@ -80,6 +80,12 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
+  /**
+   * Updates basic user info
+   * @param id 
+   * @param updateUserDto 
+   * @returns 
+   */
   async update(
     id: number,
     updateUserDto: UpdateUserDto,
