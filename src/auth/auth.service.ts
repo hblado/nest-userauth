@@ -4,6 +4,7 @@ import { AuthPayloadDto } from './dto/auth.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -21,12 +22,8 @@ export class AuthService {
             .getOne();
 
         if (!findUser) return null;
-
-        // use bcrypt!!!
-        const passwordMatches = findUser.password === password;
-
+        const passwordMatches = await bcrypt.compare(password, findUser.password)
         if (!passwordMatches) return null;
-
         const { password: _, ...userWithoutPassword } = findUser;
         return userWithoutPassword;
     }

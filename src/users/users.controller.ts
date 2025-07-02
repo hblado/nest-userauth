@@ -15,12 +15,23 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { Roles } from './roles/roles.decorator';
 
+type PasswordChanger = {
+  id: number,
+  oldPassword: string,
+  newPassword: string
+}
+
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly userService: UsersService,
   ) {}
 
+  /**
+   * Creates a new User
+   * @param {CreateUserDto} createUserDto 
+   * @returns 
+   */
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
@@ -44,8 +55,13 @@ export class UsersController {
     }
   }
 
+  /**
+   * Get info from all users
+   * @returns 
+   */
   @Get()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   async findAll() {
     try {
       const data =
@@ -63,7 +79,14 @@ export class UsersController {
     }
   } 
 
+  /**
+   * Gets info from another user
+   * @param {number} id 
+   * @returns 
+   */
   @Get(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   async findOne(@Param('id') id: string) {
     try {
       const data = await this.userService.findOne(
@@ -80,6 +103,20 @@ export class UsersController {
         message: error.message,
       };
     }
+  }
+
+  /**
+   * Changes the password
+   * @param {PasswordChanger} passwordChanger 
+   */
+  @Patch('change-password')
+  @UseGuards(JwtAuthGuard)
+  async changePass(@Body() passwordChanger: PasswordChanger){
+    await this.userService.changePassword(
+      passwordChanger.id,
+      passwordChanger.oldPassword,
+      passwordChanger.newPassword
+    )
   }
 
   @Patch(':id')
@@ -105,6 +142,8 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   async remove(@Param('id') id: string) {
     try {
       await this.userService.remove(+id);

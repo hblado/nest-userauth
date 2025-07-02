@@ -51,7 +51,7 @@ You can turn off the database logging at `app.module.ts`
 * [x] User Class
 * [x] JWT Auth
 * [x] Use Guards and Strategies
-* [ ] Bcrypt passwords
+* [x] Bcrypt passwords
 * [ ] User CRUD endpoints
 * [x] Protect endpoints by user role
 * [ ] ts-check documentation
