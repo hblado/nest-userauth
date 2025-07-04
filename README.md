@@ -48,8 +48,22 @@ Run (development mode)
 npm run start:dev
 ```
 
-You can turn off the database logging at `app.module.ts`
+Build and run
+```bash
+npm run build && npm start
+```
 
+Generate documentation
+```bash
+npx typedoc --entryPointStrategy Expand src
+```
+# How to use
+- create function at *.service.ts
+- link a endpoint to this function at *.controller.ts
+- use decorator @UseGuards(JwtAuthGuard) for a jwt-only access
+- RolesGuard to ask for a specific user role (e.g admin)
+
+>used Bruno for the endpoints
 
 # Plannings
 
@@ -60,4 +74,4 @@ You can turn off the database logging at `app.module.ts`
 * [x] Bcrypt passwords
 * [x] User CRUD endpoints
 * [x] Protect endpoints by user role
-* [ ] ts-check documentation
+* [x] ts-check documentation

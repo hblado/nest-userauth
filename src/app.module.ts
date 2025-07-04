@@ -22,8 +22,7 @@ import { JwtModule } from '@nestjs/jwt';
       username: process.env.POSTGRES_USER,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       database: process.env.POSTGRES_DATABASE,
-      synchronize: true,
-      logging: true, //take this outta here!
+      synchronize: true
     }),
     AuthModule,
     UsersModule

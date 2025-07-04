@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "hermetic-api",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
